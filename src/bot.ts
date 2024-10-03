@@ -13,33 +13,39 @@ const {
   TG_API_HASH,
   PHONE_NUMBER,
   SESSION_NAME,
+  MY_USERNAME,
+  LLM_CONTEXT_PATH,
+  COMMAND_BASE_URL,
 } = process.env;
 
-const MY_USERNAME = 'dea_hq';
-(async () => {  
-const candlecontext = await fs.readFile('/Users/sernyl/dev/tg-sb/src/candle.txt', 'utf8');
-console.log(candlecontext);
-const COMMANDS = {
+if (!TG_API_ID || !TG_API_HASH || !PHONE_NUMBER || !MY_USERNAME || !LLM_CONTEXT_PATH || !COMMAND_BASE_URL) {
+  console.error("Missing required environment variables. Please check your .env file.");
+  process.exit(1);
+}
+
+const COMMANDS: { [key: string]: { prefix: string; endpoint: string; params: object } } = {
   q: {
     prefix: '!q',
-    endpoint: 'http://localhost:8000/q',
+    endpoint: `${COMMAND_BASE_URL}/q`,
+    //params: '<EDIT>', // Replace with actual parameters
     params: {
       temperature: 0.3,
       tokens: 3000,
       model: 'openai-next',
       version: 'v2',
-    },
+    }
   },
   b: {
     prefix: '!cb',
-    endpoint: 'http://localhost:8000/q',
+    endpoint: `${COMMAND_BASE_URL}/q`, // Assuming this is correct
+    //params: '<EDIT>', // Replace with actual parameters
     params: {
-      "temperature": 0.92,
-      "tokens": 4000,
-      "format": "fun",
-      "model": "openai-next",
-      "version": "v2",
-    },
+      temperature: 0.92,
+      tokens: 4000,
+      format: "fun",
+      model: "openai-next",
+      version: "v2",
+    }
   },
 };
 
@@ -47,8 +53,8 @@ const stringSession = new StringSession(SESSION_NAME);
 
 const client = new TelegramClient(
   stringSession,
-  parseInt(TG_API_ID!, 10),
-  TG_API_HASH!,
+  parseInt(TG_API_ID, 10),
+  TG_API_HASH,
   { connectionRetries: 5 }
 );
 
@@ -58,32 +64,24 @@ const entityCache: { [id: number]: string } = {};
 async function login(): Promise<boolean> {
   console.log('Starting login process...');
 
-  let attempts = 0;
-  const maxAttempts = 3;
-
-  while (attempts < maxAttempts) {
+  for (let attempts = 1; attempts <= 3; attempts++) {
     try {
-      console.log(`Attempt ${attempts + 1} of ${maxAttempts}`);
+      console.log(`Attempt ${attempts} of 3`);
       await client.start({
-        phoneNumber: async () => PHONE_NUMBER,
-        password: async () =>
-          await input.text('Please enter your 2FA password: '),
-        phoneCode: async () =>
-          await input.text('Please enter the code you received: '),
-        onError: (err) => console.log(err),
+        phoneNumber: () => PHONE_NUMBER,
+        password: () => input.text('Please enter your 2FA password: '),
+        phoneCode: () => input.text('Please enter the code you received: '),
+        onError: (err) => console.error(err),
       });
       console.log('Login successful!');
       return true;
     } catch (error: any) {
-      console.log(`Error during login: ${error.message}`);
+      console.error(`Error during login: ${error.message}`);
       if (error.message.includes('PHONE_CODE_INVALID')) {
         console.log('Invalid phone code. Please try again.');
-        attempts++;
       } else if (error.message.includes('FLOOD_WAIT_')) {
         const waitTime = parseInt(error.message.split('_')[2]);
-        console.log(
-          `FloodWaitError: Need to wait ${waitTime} seconds before trying again.`
-        );
+        console.log(`FloodWaitError: Need to wait ${waitTime} seconds before trying again.`);
         await new Promise((resolve) => setTimeout(resolve, waitTime * 1000));
       } else {
         throw error;
@@ -91,7 +89,7 @@ async function login(): Promise<boolean> {
     }
   }
 
-  console.log('Max login attempts reached. Please try again later.');
+  console.error('Max login attempts reached. Please try again later.');
   return false;
 }
 
@@ -100,20 +98,13 @@ async function sendPromptAndGetResponse(
   question: string,
   context: string = ''
 ): Promise<string> {
-  const { endpoint, params } = COMMANDS[command as keyof typeof COMMANDS];
+  const { endpoint, params } = COMMANDS[command];
   try {
     const response = await axios.post(
       endpoint,
-      {
-        question,
-        context: candlecontext,
-        ...params,
-      },
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
+      { question, context, ...params },
+      { headers: { 'Content-Type': 'application/json' } }
     );
-
     return response.data.assistant;
   } catch (error) {
     console.error(`Error sending prompt to ${endpoint}:`, error);
@@ -121,15 +112,10 @@ async function sendPromptAndGetResponse(
   }
 }
 
-function parseCommand(
-  text: string
-): { command: string; content: string } | null {
+function parseCommand(text: string): { command: string; content: string } | null {
   for (const [key, value] of Object.entries(COMMANDS)) {
     if (text.startsWith(value.prefix)) {
-      return {
-        command: key,
-        content: text.slice(value.prefix.length).trim(),
-      };
+      return { command: key, content: text.slice(value.prefix.length).trim() };
     }
   }
   return null;
@@ -139,32 +125,46 @@ async function handleNewMessage(event: NewMessage.Event) {
   const msg = event.message;
   let messageType = 'unknown';
   let entityId: number | undefined;
+  console.log(msg.message)
 
-  if (msg?.peerId?.chatId) {
-    messageType = 'group';
-    entityId = msg.peerId.chatId;
-  } else if (msg?.peerId?.channelId) {
+  // Check for channel messages
+  if (msg?.peerId?.channelId) {
+    entityId = Number(msg.peerId.channelId.value);
     messageType = 'channel';
-    entityId = msg.peerId.channelId;
-  } else if (msg?.peerId?.userId) {
-    messageType = 'direct';
-    entityId = msg.peerId.userId;
+  }
+  // Check for user messages (direct or group)
+  else if (msg?.peerId?.userId) {
+    entityId = Number(msg.peerId.userId.value); 
+    if (msg.out) {
+      messageType = 'outgoing';
+    } else {
+      messageType = 'direct'; 
+    }
+  }
+  // Check for chat (group) messages
+  else if (msg?.peerId?.chatId) {
+    entityId = Number(msg.peerId.chatId.value);
+    messageType = 'group';
   }
 
   console.log(`Received a ${messageType} message`);
 
   if (!entityId) {
-    console.log('This message is not from a chat, channel, or user');
+    console.log('Unable to determine the entity ID for this message');
     return;
   }
 
-  // Get the entity name or ID
   let entityNameOrId = entityCache[entityId];
   if (!entityNameOrId) {
     try {
-      const entity = await client.getEntity(entityId);
+      let entity;
+      if (messageType === 'channel') {
+        entity = await client.getEntity(entityId.toString());
+      } else {
+        entity = await client.getEntity(entityId);
+      }
+
       if ('title' in entity) {
-        // Chats and channels
         entityNameOrId = entity.title;
       } else if ('username' in entity) {
         entityNameOrId = entity.username;
@@ -174,11 +174,42 @@ async function handleNewMessage(event: NewMessage.Event) {
         entityNameOrId = entityId.toString();
       }
       entityCache[entityId] = entityNameOrId;
+
     } catch (error) {
       console.error('Error fetching entity:', error);
-      entityNameOrId = entityId.toString();
+
+      try {
+        // If fetching by ID fails, try fetching all dialogs to update the cache
+        await client.getDialogs();
+
+        // Now try fetching the entity again
+        let entity;
+        if (messageType === 'channel') {
+          entity = await client.getEntity(entityId.toString());
+        } else {
+          entity = await client.getEntity(entityId);
+        }
+
+        if ('title' in entity) {
+          entityNameOrId = entity.title;
+        } else if ('username' in entity) {
+          entityNameOrId = entity.username;
+        } else if ('firstName' in entity) {
+          entityNameOrId = entity.firstName;
+        } else {
+          entityNameOrId = entityId.toString();
+        }
+        entityCache[entityId] = entityNameOrId;
+
+      } catch (error) {
+        console.error('Error fetching entity after getDialogs:', error);
+        entityNameOrId = entityId.toString();
+        entityCache[entityId] = entityNameOrId;
+      }
     }
   }
+
+  console.log(`Entity name or ID: ${entityNameOrId}`);
 
   // Get the date in YYYY-MM-DD format
   const date = new Date().toISOString().split('T')[0];
@@ -186,7 +217,7 @@ async function handleNewMessage(event: NewMessage.Event) {
   // Construct the filename
   const filename = `${entityNameOrId}-${date}.json`;
 
-  // **Updated date handling**
+  // Updated date handling
   let dateString = '';
   if (msg.date) {
     if (msg.date instanceof Date) {
@@ -206,7 +237,6 @@ async function handleNewMessage(event: NewMessage.Event) {
     dateString = new Date().toISOString(); // Fallback to current date
   }
 
-  // Prepare the message data to log
   const messageData = {
     messageId: msg.id,
     date: dateString,
@@ -217,46 +247,40 @@ async function handleNewMessage(event: NewMessage.Event) {
     senderLastName: msg.sender?.lastName,
   };
 
-  // Add the message data to messagesMap
-  if (!messagesMap[filename]) {
-    messagesMap[filename] = [];
-  }
+  messagesMap[filename] = messagesMap[filename] || [];
   messagesMap[filename].push(messageData);
 
   let parsedCommand = msg.text ? parseCommand(msg.text) : null;
-  console.log('Parsed command:', parsedCommand);
-  let context = '';
 
   if (!parsedCommand && msg.replyTo?.replyToMsgId) {
-    const [repliedMessage] = await client.getMessages(entityId, {
-      ids: [msg.replyTo.replyToMsgId],
-      limit: 1,
-    });
-
-    if (repliedMessage.sender?.username === MY_USERNAME) {
-      parsedCommand = parseCommand(repliedMessage.text || '');
-      if (parsedCommand) {
-        console.log('This is a reply to your bot message!');
-        context = parsedCommand.content;
-        parsedCommand.content = msg.text || '';
+    try { 
+      const [repliedMessage] = await client.getMessages(entityId, { 
+        ids: [msg.replyTo.replyToMsgId],
+        limit: 1,
+      });
+      if (repliedMessage.sender?.username === MY_USERNAME) {
+        parsedCommand = parseCommand(repliedMessage.text || '');
+        if (parsedCommand) {
+          parsedCommand.content = msg.text || '';
+        }
       }
+    } catch (error) {
+      console.error('Error fetching replied message:', error);
+      // Handle the error, e.g., by sending a message to the user or logging the error
     }
   }
 
   if (parsedCommand) {
     try {
-      console.log('Parsed command:', parsedCommand);
-      console.log(parseCommand)
+      const llmcontext = await fs.readFile(LLM_CONTEXT_PATH as string, 'utf8'); // Read context here
       const response = await sendPromptAndGetResponse(
         parsedCommand.command,
         parsedCommand.content,
-        context = (parsedCommand.command === 'b)' ? candlecontext : ''
+        llmcontext // Pass the context to the function
       );
       console.log('Automated reply:', response);
-      await client.sendMessage(entityId, {
-        message: `${
-          COMMANDS[parsedCommand.command as keyof typeof COMMANDS].prefix
-        } ${response}`,
+      await client.sendMessage(entityId, { 
+        message: `${COMMANDS[parsedCommand.command].prefix} ${response}`,
         replyTo: msg.id,
       });
       console.log('Automated reply sent successfully');
@@ -266,42 +290,18 @@ async function handleNewMessage(event: NewMessage.Event) {
   }
 }
 
-// Function to check if a file exists
-async function fileExists(path: string) {
-  try {
-    await fs.access(path);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-// Function to save messages to files every 5 minutes
-setInterval(async () => {
+async function saveMessagesToFile() {
   for (const filename in messagesMap) {
     const messages = messagesMap[filename];
     if (messages.length > 0) {
       try {
-        let allMessages = [];
-        if (await fileExists(filename)) {
-          // Read existing messages
-          const existingData = await fs.readFile(filename, 'utf8');
-          const existingMessages = JSON.parse(existingData);
-          // Append new messages
-          allMessages = existingMessages.concat(messages);
-        } else {
-          allMessages = messages;
-        }
-        // Write messages to the file with a replacer for BigInt
+        const existingData = await fs.readFile(`./logs/${filename}`, 'utf8').catch(() => '[]');
+        const allMessages = JSON.parse(existingData).concat(messages);
         await fs.writeFile(
-          filename,
-          JSON.stringify(
-            allMessages,
-            (key, value) => (typeof value === 'bigint' ? value.toString() : value),
-            2
-          )
+          `./logs/${filename}`,
+          JSON.stringify(allMessages, (key, value) =>
+            typeof value === 'bigint' ? value.toString() : value, 2)
         );
-        // Clear the messages array for this filename
         messagesMap[filename] = [];
       } catch (error) {
         console.error(`Error writing to file ${filename}:`, error);
@@ -309,26 +309,24 @@ setInterval(async () => {
     }
   }
   console.log('Messages saved to files');
-}, 1 * 30 * 1000); // Every 5 minutes
+}
+
+setInterval(saveMessagesToFile, 5 * 60 * 1000); // Every 5 minutes
 
 
 (async () => {
   console.log('Starting...');
-
   if (await login()) {
     console.log('You should now be connected.');
     console.log('Session string:', client.session.save());
 
     client.addEventHandler(
       handleNewMessage,
-      new NewMessage({
-        incoming: true,
-        forwards: false,
-      })
+      new NewMessage({ incoming: true, forwards: false })
     );
 
-    await new Promise(() => {});
+    await new Promise(() => { }); // Keep the process alive
   } else {
     console.log('Failed to log in. Exiting...');
   }
-})()})();
+})();
