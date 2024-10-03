@@ -1,2 +1,2 @@
-worker: npm install; npx install node@latest; npx tsc; npx node dist/bot.js
+worker: npm install; npx install node@16.18.1; npx tsc; npx node dist/bot.js
 
