@@ -1,0 +1,44 @@
+[
+  {
+    "messageId": 741,
+    "date": "2024-09-30T01:01:07.000Z",
+    "text": "!q hello",
+    "senderId": "5020506796"
+  },
+  {
+    "messageId": 759,
+    "date": "2024-09-30T02:13:28.000Z",
+    "text": "Two-Step Verification settings changed. Dear DEА, your Two-Step Verification password and/or email were changed on 30/09/2024 at 02:13:27 UTC.\n\nDevice: Telegram Desktop, 5.5.6 arm64, Mac Studio M2 Ultra, macOS 13.4\nLocation: Philadelphia, United States\n\nIf you didn’t request this, review your Active Sessions: Settings > Devices (or Privacy & Security > Active Sessions).",
+    "senderId": "777000"
+  },
+  {
+    "messageId": 993,
+    "date": "2024-09-30T16:22:33.000Z",
+    "text": "DEА, we received a request to log in on my.nicegram.app with your Telegram account.\n\nTo authorize this request, use the 'Confirm' button below. \n\nBrowser: Safari 18.1 on iOS\nIP: 2a04:4e41:0050:109f:0000:0000:abc2:849f (United States)\n\nIf you didn't request this, use the 'Decline' button or ignore this message.",
+    "senderId": "777000",
+    "senderUsername": null,
+    "senderFirstName": "Telegram",
+    "senderLastName": null
+  },
+  {
+    "messageId": 994,
+    "date": "2024-09-30T16:23:50.000Z",
+    "text": "DEА, we received a request to log in on my.nicegram.app with your Telegram account.\n\nTo authorize this request, use the 'Confirm' button below. \n\nBrowser: Safari 18.1 on iOS\nIP: 2a04:4e41:0002:1021:0000:0000:628b:5621 (United States)\n\nIf you didn't request this, use the 'Decline' button or ignore this message.",
+    "senderId": "777000",
+    "senderUsername": null,
+    "senderFirstName": "Telegram",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1003,
+    "date": "2024-09-30T18:30:57.000Z",
+    "text": "!q hello!",
+    "senderId": "5020506796"
+  },
+  {
+    "messageId": 1105,
+    "date": "2024-09-30T23:35:41.000Z",
+    "text": "!q hello?",
+    "senderId": "5020506796"
+  }
+]

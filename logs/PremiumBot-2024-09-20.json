@@ -1,0 +1,29 @@
+[
+  {
+    "messageId": 1401,
+    "date": "2024-09-20T02:07:15.000Z",
+    "text": "",
+    "senderId": "5314653481",
+    "senderUsername": "PremiumBot",
+    "senderFirstName": "Premium Bot",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1402,
+    "date": "2024-09-20T02:07:15.000Z",
+    "text": "Please pay the invoice above to subscribe to Telegram Premium Features.",
+    "senderId": "5314653481",
+    "senderUsername": "PremiumBot",
+    "senderFirstName": "Premium Bot",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1403,
+    "date": "2024-09-20T02:07:19.000Z",
+    "text": "",
+    "senderId": "5314653481",
+    "senderUsername": "PremiumBot",
+    "senderFirstName": "Premium Bot",
+    "senderLastName": null
+  }
+]

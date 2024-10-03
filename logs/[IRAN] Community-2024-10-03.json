@@ -1,0 +1,786 @@
+[
+  {
+    "messageId": 1768,
+    "date": "2024-10-03T01:25:44.000Z",
+    "text": "kernel exploits are there .But depends on the version of kernels . I mean specially micro kernels ,which people don't update usually . And most people don't update the kernel separately in the os .As an example most of routers and some hmi devices run on BusyBox linux .",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1769,
+    "date": "2024-10-03T02:02:11.000Z",
+    "text": "All APIs for driver development are in microsoft's DDK, and everything is well documented, so there are no problems, plus the debugging symbols make it very easy to reverse the kernel",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1770,
+    "date": "2024-10-03T02:05:53.000Z",
+    "text": "it depends on which kernel you're targeting. If it's a linux, it's insanely easy to \"hack\" it by default. Windows kernel is more tricky, there is a shadow stack, HVCI(VBS) and so on. And XNU is fucked up",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1771,
+    "date": "2024-10-03T02:09:37.000Z",
+    "text": "Load a vulnerable driver and attack it(BYOVD) This is a classic if you have admin rights. If you're a kust  user or in a sandbox, you'll have to pay 30 to 100k $.",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1772,
+    "date": "2024-10-03T02:12:05.000Z",
+    "text": "Anyway, breaking into the kernel is not so easy on modern systems, you need exploits",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1773,
+    "date": "2024-10-03T02:15:30.000Z",
+    "text": "Nowadays only Lazarus creates good ring0 rootkits, but there is a whole army",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1774,
+    "date": "2024-10-03T02:23:03.000Z",
+    "text": "And I want to disappoint you, on windows 11 ring0 is divided into ring0vtl0(ntoskrnl.exe) and ring0vtl1(securekernel.exe), where the latter protects the former. And even with a kernel(!) exploit, you can't implement a rootkit using the old techniques. That's why most people don't implement a rootkit, but use Data-only-attack using AAR/AAW. Generally not bad either, because overwriting 1 byte in kernel memory can already give you god mode (KTHREAD previous mode)",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1775,
+    "date": "2024-10-03T02:25:45.000Z",
+    "text": "",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1776,
+    "date": "2024-10-03T02:26:49.000Z",
+    "text": "The reason why windows sucks, and has already overpowered apple is well laid out here by my comrade",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1777,
+    "date": "2024-10-03T02:27:10.000Z",
+    "text": "",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1778,
+    "date": "2024-10-03T02:27:14.000Z",
+    "text": "Lol thats fucking funny",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1779,
+    "date": "2024-10-03T02:27:30.000Z",
+    "text": "",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1780,
+    "date": "2024-10-03T02:28:42.000Z",
+    "text": "If you're looking to break into this field, unless you have prior low level experience, highly discouraged",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1781,
+    "date": "2024-10-03T02:37:03.000Z",
+    "text": "https://android.googlesource.com/kernel/common/+/3169d3641a8f6e1c2c61c328d171665c5ec65780?pli=1#",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1782,
+    "date": "2024-10-03T02:37:18.000Z",
+    "text": "af_unix is on top lol",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1783,
+    "date": "2024-10-03T02:39:22.000Z",
+    "text": "As you can see this is a vulnerability in the linux kernel, affects android obviously as well, and is generally a fucking mess. September 2024. So linux is not any better in memory corruption exploits field.",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1784,
+    "date": "2024-10-03T02:44:15.000Z",
+    "text": "As an exploit developer I like linux because if you have a vulnerability, like af_unix above, then thanks to open source, data types, kernel compilation with KASAN it becomes insanely easy for me to attack the kernel. Whereas in Windows you sometimes don't even know about such vulnerabilities without reverse engineering and bindiffing",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1785,
+    "date": "2024-10-03T02:50:05.000Z",
+    "text": "That's what's so cool about Windows. You need to reverse and restore data types, variable names, and generally restore code readability. You need to enter the dark depths where others have not dared to go",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1786,
+    "date": "2024-10-03T02:51:54.000Z",
+    "text": "Try to exploit a regular non-paged pool overflow in Windows, you'll fucking love it",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1787,
+    "date": "2024-10-03T12:27:11.000Z",
+    "text": "Lol, you don't need AI for this",
+    "senderId": "1295297124",
+    "senderUsername": "QuasarQuardum",
+    "senderFirstName": "Quasar",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1788,
+    "date": "2024-10-03T16:18:50.000Z",
+    "text": ""
+  },
+  {
+    "messageId": 1789,
+    "date": "2024-10-03T16:24:04.000Z",
+    "text": "ike what",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1790,
+    "date": "2024-10-03T17:11:50.000Z",
+    "text": "@Jan3891 you were a part of privatedomainresearch.qg right?",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1792,
+    "date": "2024-10-03T17:26:06.000Z",
+    "text": "you mean the group ?",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1793,
+    "date": "2024-10-03T17:26:24.000Z",
+    "text": "no, the forum",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1794,
+    "date": "2024-10-03T17:26:26.000Z",
+    "text": "belongs to leyhey",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1795,
+    "date": "2024-10-03T17:26:28.000Z",
+    "text": "with leyhey",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1796,
+    "date": "2024-10-03T17:26:29.000Z",
+    "text": "yeah",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1797,
+    "date": "2024-10-03T17:26:32.000Z",
+    "text": "do you know her @?",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1798,
+    "date": "2024-10-03T17:26:39.000Z",
+    "text": "I talked to her before but lost the contact",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1799,
+    "date": "2024-10-03T17:26:53.000Z",
+    "text": "I think I have accessed that a long ago .",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1800,
+    "date": "2024-10-03T17:27:07.000Z",
+    "text": "he is a male .",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1801,
+    "date": "2024-10-03T17:27:10.000Z",
+    "text": "is there still a link",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1802,
+    "date": "2024-10-03T17:27:23.000Z",
+    "text": "maybe he get out from the prison",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1803,
+    "date": "2024-10-03T17:27:45.000Z",
+    "text": "I don't think so .",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1804,
+    "date": "2024-10-03T17:27:51.000Z",
+    "text": "ask him",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1805,
+    "date": "2024-10-03T17:29:26.000Z",
+    "text": "He did break out of the prison",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1806,
+    "date": "2024-10-03T17:29:38.000Z",
+    "text": "I didn't talk to him recently .maybe his friends are still active",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1807,
+    "date": "2024-10-03T17:29:53.000Z",
+    "text": "I talked with him last month or so",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1808,
+    "date": "2024-10-03T17:30:30.000Z",
+    "text": "he was arrested some time ago . I think he was released last year or before the last year .",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1809,
+    "date": "2024-10-03T17:31:29.000Z",
+    "text": "what did he do",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1810,
+    "date": "2024-10-03T17:31:55.000Z",
+    "text": "not a crime , china stupid things",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1811,
+    "date": "2024-10-03T17:32:28.000Z",
+    "text": "he told me he was arrested for some darknet contents .",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1812,
+    "date": "2024-10-03T17:32:51.000Z",
+    "text": "their great wall system spy on everyone .",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1813,
+    "date": "2024-10-03T17:33:03.000Z",
+    "text": "Ah yeah, that's sad",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1814,
+    "date": "2024-10-03T17:34:12.000Z",
+    "text": "If I were in china , I can spent rest of my life in the prison .",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1815,
+    "date": "2024-10-03T17:34:18.000Z",
+    "text": "same for you I think",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1816,
+    "date": "2024-10-03T17:34:50.000Z",
+    "text": "No, I'm pretty sure that nbk made a prank call pretending to be police",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1817,
+    "date": "2024-10-03T17:35:00.000Z",
+    "text": "lol",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1818,
+    "date": "2024-10-03T17:35:10.000Z",
+    "text": "Police then came to my apartment for related reasons",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1819,
+    "date": "2024-10-03T17:35:29.000Z",
+    "text": "in real life ?",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1820,
+    "date": "2024-10-03T17:35:36.000Z",
+    "text": "Yeah that's what it means lmao",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1821,
+    "date": "2024-10-03T17:35:47.000Z",
+    "text": "Cuz I told em",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1822,
+    "date": "2024-10-03T17:36:10.000Z",
+    "text": "But I'm not certain who made the call",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1823,
+    "date": "2024-10-03T17:36:31.000Z",
+    "text": "I strongly dislike the police .",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1824,
+    "date": "2024-10-03T17:37:39.000Z",
+    "text": "depends where you live",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1825,
+    "date": "2024-10-03T17:39:39.000Z",
+    "text": "they are for protecting civil laws . But ,they think they can control people .",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1826,
+    "date": "2024-10-03T17:40:15.000Z",
+    "text": "they don't have governing powers .",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1842,
+    "date": "2024-10-03T17:46:15.000Z",
+    "text": "I can imagine someone sneaking it into a diplomat's bag so that they could kill him",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1843,
+    "date": "2024-10-03T17:47:02.000Z",
+    "text": "lol ,they will hide for diplomacy .",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1844,
+    "date": "2024-10-03T17:47:56.000Z",
+    "text": "Boom! Six months in jail and they don't think of it like, you know, something that ruins your life. It's just something that happens and you get out. It doesn't affect your life. You just move on with it. No one asks you about it or whatever. It's just something that happens to a lot of people. You sometimes end up in political jail."
+  },
+  {
+    "messageId": 1845,
+    "date": "2024-10-03T17:48:45.000Z",
+    "text": "Idk why communism got to that point, It didn't need to be campaign",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1846,
+    "date": "2024-10-03T17:49:23.000Z",
+    "text": "I don't know why marxism doesn't support the free market and tax large companies, that would make a lot more sense",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1847,
+    "date": "2024-10-03T17:49:34.000Z",
+    "text": "for it's ideology",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1848,
+    "date": "2024-10-03T17:49:56.000Z",
+    "text": "china is just cloning things",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1849,
+    "date": "2024-10-03T17:50:37.000Z",
+    "text": "probably illegal cloning",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1857,
+    "date": "2024-10-03T17:55:34.000Z",
+    "text": "why was he arrested",
+    "senderId": "7958247969",
+    "senderUsername": null,
+    "senderFirstName": "DarkAlgorithm",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1858,
+    "date": "2024-10-03T17:55:49.000Z",
+    "text": "read the conversation",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1859,
+    "date": "2024-10-03T17:56:20.000Z",
+    "text": "ok",
+    "senderId": "7958247969",
+    "senderUsername": null,
+    "senderFirstName": "DarkAlgorithm",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1860,
+    "date": "2024-10-03T17:58:00.000Z",
+    "text": "I'm too lazy to copy paste all your discussions on Google translate because I'm Turkish",
+    "senderId": "7958247969",
+    "senderUsername": null,
+    "senderFirstName": "DarkAlgorithm",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1861,
+    "date": "2024-10-03T17:58:21.000Z",
+    "text": "Turkish hack team?",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1862,
+    "date": "2024-10-03T17:58:23.000Z",
+    "text": "can you tell me please",
+    "senderId": "7958247969",
+    "senderUsername": null,
+    "senderFirstName": "DarkAlgorithm",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1863,
+    "date": "2024-10-03T17:58:38.000Z",
+    "text": "turk ?",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1864,
+    "date": "2024-10-03T17:58:42.000Z",
+    "text": "turk?",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1865,
+    "date": "2024-10-03T17:58:43.000Z",
+    "text": "lmao",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1866,
+    "date": "2024-10-03T17:58:46.000Z",
+    "text": "no I'm just Turk",
+    "senderId": "7958247969",
+    "senderUsername": null,
+    "senderFirstName": "DarkAlgorithm",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1867,
+    "date": "2024-10-03T17:58:50.000Z",
+    "text": "@LetsMakeSomeChaos",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1868,
+    "date": "2024-10-03T17:59:10.000Z",
+    "text": "Only turkish hack team knows of this place",
+    "senderId": "1944901945",
+    "senderUsername": "V3RDAD",
+    "senderFirstName": "P.B. V3RDAD",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1869,
+    "date": "2024-10-03T17:59:18.000Z",
+    "text": "What can I do with this person?",
+    "senderId": "7958247969",
+    "senderUsername": null,
+    "senderFirstName": "DarkAlgorithm",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1870,
+    "date": "2024-10-03T17:59:33.000Z",
+    "text": "muslim cyber army ? MCA ?",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1871,
+    "date": "2024-10-03T17:59:46.000Z",
+    "text": "they have 1337 .",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1872,
+    "date": "2024-10-03T18:00:33.000Z",
+    "text": "why are you getting excited because i'm turk",
+    "senderId": "7958247969",
+    "senderUsername": null,
+    "senderFirstName": "DarkAlgorithm",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1873,
+    "date": "2024-10-03T18:00:58.000Z",
+    "text": "and why your Chinese friend got arrested",
+    "senderId": "7958247969",
+    "senderUsername": null,
+    "senderFirstName": "DarkAlgorithm",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1874,
+    "date": "2024-10-03T18:02:53.000Z",
+    "text": "because of turk hack team",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1875,
+    "date": "2024-10-03T18:03:36.000Z",
+    "text": "and what did this team do",
+    "senderId": "7958247969",
+    "senderUsername": null,
+    "senderFirstName": "DarkAlgorithm",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1876,
+    "date": "2024-10-03T18:04:13.000Z",
+    "text": "https://www.turkhackteam.org",
+    "senderId": "7958247969",
+    "senderUsername": null,
+    "senderFirstName": "DarkAlgorithm",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1877,
+    "date": "2024-10-03T18:04:20.000Z",
+    "text": "nothing I think \nmaybe distributing skid things",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  },
+  {
+    "messageId": 1878,
+    "date": "2024-10-03T18:04:43.000Z",
+    "text": "there were a team ,which consist of 12 skids .",
+    "senderId": "692033960",
+    "senderUsername": "Jan3891",
+    "senderFirstName": "Jan__",
+    "senderLastName": null
+  }
+]
